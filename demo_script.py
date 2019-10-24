@@ -63,7 +63,7 @@ while True:
 		pass
 
 
-	# Framerate
+	# Framerate - works only if inside while loop for opecv camera feed
 	has_already_started, start_time, frame_counter, frame_rate = utils.get_framerate(
 		has_already_started, start_time, frame_counter, frame_rate)
 
