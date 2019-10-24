@@ -35,6 +35,16 @@ def write_num_of_keypoints(frame,
 	write_text(frame, printed_text, position, font, color)
 
 
+def write_framerate(frame,
+				    frame_rate,
+				    position=(500, 90),
+				    font=cv2.FONT_HERSHEY_SIMPLEX,
+				    color=(0, 50, 100)): #TODO add other params
+	"""Writes number of keypoints in place (rewrites frame argument)"""
+	printed_text = 'The framerate is {}.'.format(frame_rate)
+
+	write_text(frame, printed_text, position, font, color)
+
 
 def draw_midpoint(frame,
 				  middle_midpoint,

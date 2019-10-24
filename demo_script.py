@@ -4,12 +4,19 @@ import cv2
 from vision import position as pos
 from vision import plotting as plot
 from vision import navigation as navi
+from vision import utils
 
 
 # Initialization parameters
 camera_num = 1
 
 window_res = (1280,720)
+
+# Framerate parameters
+has_already_started = False
+start_time = 0
+frame_counter = 0
+frame_rate = 0
 
 params = pos.set_detector_params()
 
@@ -34,7 +41,7 @@ while True:
 	try:
 		back_blobs_coords, front_blob_coords = pos.get_robot_coords(keypoints)
 		has_robot_coords = True
-	except Exception: # TODO
+	except Exception as e: # TODO
 		has_robot_coords = False
 
 
@@ -56,6 +63,11 @@ while True:
 		pass
 
 
+	# Framerate
+	has_already_started, start_time, frame_counter, frame_rate = utils.get_framerate(
+		has_already_started, start_time, frame_counter, frame_rate)
+
+
 	# Plotting
 	# Hardcoded areas
 	plot.plot_mine_field(frame)
@@ -66,6 +78,10 @@ while True:
 
 	plot.plot_start_area(frame)
 
+	# Framerate
+	plot.write_framerate(frame, frame_rate)
+
+	
 
 	# Displaying window
 	cv2.namedWindow('Table 2',cv2.WINDOW_NORMAL)
