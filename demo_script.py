@@ -1,4 +1,4 @@
-""" Demonstration script of vision for IDP robot"""
+""" Demonstration script of vision for IDP robot, set for Table 2"""
 
 import cv2
 from vision import position as pos
@@ -48,17 +48,43 @@ while True:
 	# If robot's coordinates are detected
 	if has_robot_coords:
 
+		# Points
 		back_midpoint = pos.get_back_midpoint(back_blobs_coords)
 		
 		middle_midpoint = pos.get_middle_midpoint(back_midpoint, front_blob_coords)
 		
+		# Angle
 		robots_angle_to_front = navi.get_robot_direction(front_blob_coords, back_midpoint)
+
+		# Distances from walls/ safe area line
+		# Currently using front point of the robot
+		safe_area_line_dist = navi.get_safe_area_line_dist(front_blob_coords)
+
+		left_wall_line_dist = navi.get_left_wall_line_dist(front_blob_coords)
+
+		right_wall_line_dist = navi.get_right_wall_line_dist(front_blob_coords)
+		
+		back_wall_line_dist = navi.get_back_wall_line_dist(front_blob_coords)
+
+		# Whether in mine area or not
+		in_mine_area = navi.is_in_mine_area(safe_area_line_dist)
+
+		# Can set thresholds as second argument
+		close_to_safe_area = navi.is_close_to_safe_area_line(safe_area_line_dist)
+
+		close_to_left_wall = navi.is_close_to_left_wall_line(left_wall_line_dist)
+
+		close_to_right_wall = navi.is_close_to_right_wall_line(right_wall_line_dist)
+
+		close_to_back_wall = navi.is_close_to_back_wall_line(back_wall_line_dist)
+
 
 		# Robot plotting
 		plot.draw_midpoint(frame, middle_midpoint)
 
 		plot.draw_robot_arrow(frame, back_midpoint, front_blob_coords)
 
+	# Branch if robots position not detected
 	else:
 		pass
 
@@ -81,7 +107,6 @@ while True:
 	# Framerate
 	plot.write_framerate(frame, frame_rate)
 
-	
 
 	# Displaying window
 	cv2.namedWindow('Table 2',cv2.WINDOW_NORMAL)
