@@ -93,27 +93,6 @@ def detect_red_blobs(frame,
 	return keypoints
 
 
-def draw_keypoints(frame,
-				   keypoints,
-				   color=(255,0,0)):
-	""" """
-	frame_with_keypoints = cv2.drawKeypoints(frame, keypoints, np.array([]), color,
-		cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
-
-	return frame_with_keypoints
-
-def write_num_of_keypoints(frame,
-						   keypoints,
-						   position=(500, 30),
-						   font=cv2.FONT_HERSHEY_SIMPLEX,
-						   color=(0, 0, 255)): #TODO add other params
-	"""In place write on frame"""
-	printed_text = '{} red blob(s) detected.'.format(len(keypoints))
-
-	frame_with_text = cv2.putText(frame, printed_text, position, font, 1, color, 2, cv2.LINE_AA)
-
-	return frame_with_text
-
 def get_coords_distance(coords_1,
 						coords_2):
 	""" """
