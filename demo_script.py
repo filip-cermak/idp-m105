@@ -26,9 +26,9 @@ while True:
 
 	keypoints = pos.detect_red_blobs(frame, detector)
 
-	frame = pos.draw_keypoints(frame, keypoints)
+	plot.draw_keypoints(frame, keypoints)
 
-	fin_frame = pos.write_num_of_keypoints(frame, keypoints)
+	plot.write_num_of_keypoints(frame, keypoints)
 
 	# Try to detect robot coordinates from detected keypoints (red blobs)
 	try:
@@ -48,9 +48,9 @@ while True:
 		robots_angle_to_front = navi.get_robot_direction(front_blob_coords, back_midpoint)
 
 		# Robot plotting
-		plot.draw_midpoint(fin_frame, middle_midpoint)
+		plot.draw_midpoint(frame, middle_midpoint)
 
-		plot.draw_robot_arrow(fin_frame, back_midpoint, front_blob_coords)
+		plot.draw_robot_arrow(frame, back_midpoint, front_blob_coords)
 
 	else:
 		pass
@@ -58,13 +58,13 @@ while True:
 
 	# Plotting
 	# Hardcoded areas
-	plot.plot_mine_field(fin_frame)
+	plot.plot_mine_field(frame)
 
-	plot.plot_red_area(fin_frame)
+	plot.plot_red_area(frame)
 
-	plot.plot_green_area(fin_frame)
+	plot.plot_green_area(frame)
 
-	plot.plot_start_area(fin_frame)
+	plot.plot_start_area(frame)
 
 
 	# Displaying window
@@ -72,7 +72,7 @@ while True:
 
 	cv2.resizeWindow('Table 2', window_res)
 
-	cv2.imshow('Table 2', fin_frame)
+	cv2.imshow('Table 2', frame)
 
 	if cv2.waitKey(1) & 0xFF == ord('q'):
 		break

@@ -4,6 +4,38 @@ import cv2
 import numpy as np
 
 
+def draw_keypoints(frame,
+				   keypoints,
+				   color=(255,0,0)):
+	""" """
+	frame = cv2.drawKeypoints(frame, keypoints, np.array([]), color,
+		cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+
+
+
+def write_text(frame,
+			   text,
+			   position,
+			   font=cv2.FONT_HERSHEY_SIMPLEX,
+			   color=(0, 0, 0)):
+	""" Writes text in place (rewrites frame argument)"""
+	
+	frame = cv2.putText(frame, text, position, font, 1, color, 2, cv2.LINE_AA)
+
+
+
+def write_num_of_keypoints(frame,
+						   keypoints,
+						   position=(500, 30),
+						   font=cv2.FONT_HERSHEY_SIMPLEX,
+						   color=(0, 0, 255)): #TODO add other params
+	"""Writes number of keypoints in place (rewrites frame argument)"""
+	printed_text = '{} red blob(s) detected.'.format(len(keypoints))
+
+	write_text(frame, printed_text, position, font, color)
+
+
+
 def draw_midpoint(frame,
 				  middle_midpoint,
 				  size=10,
