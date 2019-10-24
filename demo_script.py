@@ -40,7 +40,7 @@ while True:
 
 		plot.draw_midpoint(fin_frame, middle_midpoint)
 
-		# plot.draw robot arrow
+		plot.draw_robot_arrow(fin_frame, back_midpoint, front_blob_coords)
 
 		# TODO next
 
